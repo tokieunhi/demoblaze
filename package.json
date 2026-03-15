@@ -1,0 +1,32 @@
+{
+  "name": "DemoBlaze Automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:ui-only": "playwright test tests/ui",
+    "test:api-only": "playwright test tests/api",
+    "report": "playwright show-report",
+    "report:allure": "allure generate allure-results -o allure-report --clean",
+    "report:allure:open": "allure open allure-report",
+    "report:allure:serve": "allure serve allure-results"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "e2e",
+    "api-testing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0",
+    "allure-commandline": "^2.38.0",
+    "allure-playwright": "^3.6.0"
+  }
+}

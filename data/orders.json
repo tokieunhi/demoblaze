@@ -1,0 +1,10 @@
+{
+  "placeOrder": {
+    "name": "Test Automation",
+    "country": "USA",
+    "city": "New York",
+    "credit_card": "4111111111111111",
+    "month": "12",
+    "year": "2025"
+  }
+}

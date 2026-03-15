@@ -1,0 +1,44 @@
+{
+  "validData": {
+    "validAccount": {
+      "userName": "nhitokieu",
+      "password": "Test@123",
+      "token": "bmhpdG9raWV1MTc3NDE0NA=="
+    },
+    "users": [
+      {
+        "userName": "nhitokieu",
+        "password": "Test@123",
+        "token": "bmhpdG9raWV1MTc3NDE0NA=="
+      },
+      {
+        "userName": "nhitokieu2",
+        "password": "Test@123",
+        "token": "bmhpdG9raWV1MjE3NzQxNDE="
+      },
+      {
+        "userName": "nhitokieu3",
+        "password": "Test@123",
+        "token": "bmhpdG9raWV1MzE3NzQxNDk="
+      }
+    ]
+  },
+  "invalidData": {
+    "invalidUsername": {
+      "userName": "invalidusername",
+      "password": "Test@123"
+    },
+    "invalidPassword": {
+      "userName": "nhitokieu",
+      "password": "InvalidPassword"
+    },
+    "emptyUsername": {
+      "userName": "",
+      "password": "Test@123"
+    },
+    "emptyPassword": {
+      "userName": "nhitokieu",
+      "password": ""
+    }
+  }
+}

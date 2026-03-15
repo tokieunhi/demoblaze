@@ -1,0 +1,16 @@
+{
+    "products": [
+      { "id": 1, "name": "Samsung galaxy s6", "price": 360, "category": "Phones" },
+      { "id": 2, "name": "Nokia lumia 1520", "price": 820, "category": "Phones" },
+      { "id": 3, "name": "Nexus 6", "price": 650, "category": "Phones" },
+      { "id": 4, "name": "Samsung galaxy s7", "price": 800, "category": "Phones" },
+      { "id": 5, "name": "Iphone 6 32gb", "price": 790, "category": "Phones" },
+      { "id": 6, "name": "Sony xperia z5", "price": 320, "category": "Phones" },
+      { "id": 7, "name": "HTC One M9", "price": 700, "category": "Phones" },
+      { "id": 8, "name": "Sony vaio i5", "price": 790, "category": "Laptops" },
+      { "id": 9, "name": "Sony vaio i7", "price": 790, "category": "Laptops" },
+      { "id": 10, "name": "Apple monitor 24", "price": 400, "category": "Monitors" },
+      { "id": 11, "name": "MacBook air", "price": 700, "category": "Laptops" },
+      { "id": 12, "name": "Dell i7 8gb", "price": 700, "category": "Laptops" }
+    ]
+  }
