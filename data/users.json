@@ -2,24 +2,20 @@
   "validData": {
     "validAccount": {
       "userName": "nhitokieu",
-      "password": "Test@123",
-      "token": "bmhpdG9raWV1MTc3NDE0NA=="
+      "password": "Test@123"
     },
     "users": [
       {
         "userName": "nhitokieu",
-        "password": "Test@123",
-        "token": "bmhpdG9raWV1MTc3NDE0NA=="
+        "password": "Test@123"
       },
       {
         "userName": "nhitokieu2",
-        "password": "Test@123",
-        "token": "bmhpdG9raWV1MjE3NzQxNDE="
+        "password": "Test@123"
       },
       {
         "userName": "nhitokieu3",
-        "password": "Test@123",
-        "token": "bmhpdG9raWV1MzE3NzQxNDk="
+        "password": "Test@123"
       }
     ]
   },

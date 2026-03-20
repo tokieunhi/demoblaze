@@ -2,7 +2,7 @@ import { test as baseTest, expect as baseExpect } from '@playwright/test';
 import { HomePage } from '../pages/home.page';
 import { LoginModal } from '../pages/modal/login.modal';
 import { PlaceOrderModal } from '../pages/modal/place-order.modal';
-import { NavigationBar } from '../pages/shared/navigation.bar';
+import { NavigationBar } from '../pages/navigation.bar';
 import { CartPage } from '../pages/cart.page';
 import { ProductPage } from '../pages/product.page';
 import { PurchaseConfirmationModal } from '../pages/modal/purchase-confirmation.modal';

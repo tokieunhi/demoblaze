@@ -12,3 +12,10 @@ export interface IOrderDetails {
   month: string;
   year: string;
 }
+
+export interface IProduct {
+  id: string | number;
+  name: string;
+  price: number;
+  category: string;
+}

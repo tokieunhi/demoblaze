@@ -13,8 +13,10 @@ export class CartPage extends BasePage {
   readonly cartTable = this.page.locator('#tbodyid');
   readonly productRowByProductName = (productName: string) =>
     this.cartTable.locator('tr').filter({ hasText: productName });
+  readonly firstProductRowByName = (productName: string) =>
+    this.productRowByProductName(productName).first();
   readonly deleteButton = (productName: string) =>
-    this.productRowByProductName(productName).first().locator('a').last();
+    this.firstProductRowByName(productName).locator('a').last();
   readonly placeOrderButton = this.page.locator('button:has-text("Place Order")');
 
   async goto(): Promise<void> {
@@ -22,11 +24,11 @@ export class CartPage extends BasePage {
   }
 
   async waitForProductInCart(productName: string): Promise<void> {
-    await this.waitForVisible(this.productRowByProductName(productName));
+    await this.waitForVisible(this.firstProductRowByName(productName), 10000);
   }
 
   async removeProduct(productName: string): Promise<void> {
-    await this.waitForVisible(this.productRowByProductName(productName));
+    await this.waitForVisible(this.firstProductRowByName(productName), 10000);
     await this.deleteButton(productName).click();
   }
 

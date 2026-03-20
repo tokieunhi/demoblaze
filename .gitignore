@@ -6,4 +6,3 @@ playwright/.cache/
 allure-results/
 allure-report/
 *.log
-*.env

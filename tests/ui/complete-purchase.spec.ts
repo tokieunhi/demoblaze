@@ -1,15 +1,21 @@
 import { test, expect } from '../../fixtures/page.fixtures';
 import { orderData, userData, productData } from '../../data';
-import { resetCart } from '../../api/cart.api';
+import { CartService } from '../../api/services/cart.service';
+import { AuthService } from '../../api/services/auth.service';
 import { IOrderDetails, IUser } from '../../data/types';
 
 const orderDetails: IOrderDetails = orderData.placeOrder;
-const user: IUser = userData.validData.users[1];
+const user = userData.validData.users[1];
 const product = productData.products[0];
 
-test.describe('UI - Complete Purchase', () => {
-  test.beforeEach(async ({ request }) => {
-    await resetCart(request, user.userName);
+const cartService = new CartService();
+const authService = new AuthService();
+let token: string;
+
+test.describe('Complete purchase', () => {
+  test.beforeEach(async () => {
+    token = await authService.generateToken(user.userName, user.password);
+    const deleteCartResponse = await cartService.deleteCart(token);
   });
 
   test('Purchase product successfully', async ({
@@ -32,11 +38,11 @@ test.describe('UI - Complete Purchase', () => {
     await cartPage.waitForProductInCart(product.name);
     await cartPage.clickPlaceOrderButton();
 
-    // 1. Fill order details and click purchase button
+    // Fill order details and click purchase button
     await placeOrderModal.fillOrderDetails(orderDetails);
     await placeOrderModal.clickPurchaseButton();
 
-    // 2. Get and verify confirmation details from thank you modal
+    // Get and verify confirmation details from thank you modal
     const message = await purchaseConfirmationModal.getSuccessMessage();
     const infoBlock = await purchaseConfirmationModal.confirmationDetailsBlock.textContent();
     expect(message).toContain('Thank you for your purchase');
@@ -44,7 +50,7 @@ test.describe('UI - Complete Purchase', () => {
     expect(infoBlock).toContain(orderDetails.credit_card);
     expect(infoBlock).toContain(product.price.toString());
 
-    // 3. Close modal
+    // Close modal
     await purchaseConfirmationModal.clickOk();
   });
 });

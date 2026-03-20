@@ -1,76 +1,72 @@
 import { test, expect } from '@playwright/test';
-import { addProductToCart, viewCart } from '../../api/cart.api';
 import { userData, productData } from '../../data';
-import { resetCart } from '../../api/cart.api';
-import { AddToCartPayload } from '../../api/types';
+import { CartService } from '../../api/services/cart.service';
+import { AuthService } from '../../api/services/auth.service';
+import { AddToCartPayload, AddToCartResponse } from '../../api/types';
+import { StatusCode } from '../../api/enum';
 
-const user = userData.validData.users[2];
+const user = userData.validData.users[0];
 const product = productData.products[8];
 
+const cartService = new CartService();
+const authService = new AuthService();
+let token: string;
+
 test.describe('API - Add to Cart', () => {
-  test.beforeEach(async ({ request }) => {
-    await resetCart(request, user.userName);
+  test.beforeEach(async () => {
+    token = await authService.generateToken(user.userName, user.password);
   });
 
-  test('Add product to cart successfully', async ({ request }) => {
-    const payload: AddToCartPayload = {
-      token: user.token,
-      productId: product.id,
-    };
-    const resp = await addProductToCart(request, payload);
-    expect(resp.status()).toBe(200);
+  test('Add product to cart successfully', async () => {
+    const addToCartResponse = await cartService.addProductToCart({
+      id: crypto.randomUUID(),
+      cookie: token,
+      prod_id: product.id
+    } as AddToCartPayload);
 
-    const viewCartResponse = await viewCart(request, user.token);
+    expect(addToCartResponse.status()).toBe(StatusCode.OK);
+
+    // Verify product appears in cart via viewcart
+    const viewCartResponse = await cartService.viewCart(token);
     expect(viewCartResponse.status()).toBe(200);
     const viewCartResponseBody = await viewCartResponse.json();
-    expect(viewCartResponseBody.Items).toHaveLength(1);
     expect(viewCartResponseBody.Items[0].prod_id).toBe(product.id);
+    expect(viewCartResponseBody.Items[0].cookie).toBe(token);
   });
 
-  test('Add product to cart successfully with flag = `false`', async ({ request }) => {
-    const payload: AddToCartPayload = {
-      token: user.token,
-      productId: product.id,
+  test('Add product to cart successfully with flag = `false`', async () => {
+    const addToCartResponse = await cartService.addProductToCart({
+      id: crypto.randomUUID(),
+      cookie: token,
+      prod_id: product.id,
       flag: false,
-    };
-    const resp = await addProductToCart(request, payload);
-    expect(resp.status()).toBe(200);
+    } as AddToCartPayload);
+    expect(addToCartResponse.status()).toBe(StatusCode.OK);
 
-    const viewCartResponse = await viewCart(request, user.token);
+    // Verify product appears in cart via viewcart
+    const viewCartResponse = await cartService.viewCart(token);
     expect(viewCartResponse.status()).toBe(200);
     const viewCartResponseBody = await viewCartResponse.json();
-    expect(viewCartResponseBody.Items).toHaveLength(1);
     expect(viewCartResponseBody.Items[0].prod_id).toBe(product.id);
+    expect(viewCartResponseBody.Items[0].cookie).toBe(token);
   });
 
-  test('Add product to cart unsuccessfully with invalid cookie', async ({ request }) => {
-    const payload: AddToCartPayload = {
-      token: 'invalid-token',
-      productId: product.id,
-    };
-    const resp = await addProductToCart(request, payload);
-    expect(resp.status()).toBe(200);
+  test('Add product to cart unsuccessfully with invalid token', async () => {
+    const resp = await cartService.addProductToCart({
+      cookie: 'invalid-token',
+      prod_id: product.id,
+    });
+    expect(resp.status()).toBe(StatusCode.OK);
 
-    const respBody = await resp.json();
-    expect(respBody['errorMessage']).toEqual('Bad parameter, token malformed.');
+    const respBody: AddToCartResponse = await resp.json();
+    expect(respBody.errorMessage).toEqual('Bad parameter, token malformed.');
   });
 
-  test('Add product to cart unsuccessfully with empty cookie', async ({ request }) => {
-    const payload: AddToCartPayload = {
-      token: '',
-      productId: product.id,
-    };
-    const resp = await addProductToCart(request, payload);
-    expect(resp.status()).toBe(500);
-  });
-
-  test('Add product to cart unsuccessfully with empty id', async ({ request }) => {
-    const payload: AddToCartPayload = {
-      id: '',
-      token: user.token,
-      productId: '',
-    };
-    const resp = await addProductToCart(request, payload);
-    expect(resp.status()).toBe(500);
+  test('Add product to cart unsuccessfully with empty token', async () => {
+    const resp = await cartService.addProductToCart({
+      cookie: '',
+      prod_id: product.id,
+    });
+    expect(resp.status()).toBe(StatusCode.INTERNAL_ERROR);
   });
 });

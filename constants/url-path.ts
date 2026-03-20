@@ -1,5 +1,5 @@
 /**
- * DemoBlaze URL paths.
+ * DemoBlaze UI URL paths.
  */
 export const URL_PATH = {
   CART: '/cart.html',

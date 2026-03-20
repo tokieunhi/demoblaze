@@ -1,8 +1,8 @@
 import { Page } from '@playwright/test';
-import { BasePage } from '../base.page';
+import { BasePage } from './base.page';
 
 /**
- * Navigation bar component shared across pages.
+ * Navigation menu component shared across pages.
  */
 export class NavigationBar extends BasePage {
   constructor(page: Page) {

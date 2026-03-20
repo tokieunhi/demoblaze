@@ -1,6 +1,5 @@
 /**
  * DemoBlaze API endpoints.
- * Based on the site's backend structure.
  */
 export const API_ENDPOINTS = {
   LOGIN: '/login',
@@ -9,5 +8,5 @@ export const API_ENDPOINTS = {
   ADD_TO_CART: '/addtocart',
   VIEW_CART: '/viewcart',
   DELETE_ITEM: '/deleteitem',
-  RESET_CART: '/deletecart',
+  DELETE_CART: '/deletecart',
 } as const;

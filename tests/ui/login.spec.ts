@@ -3,7 +3,7 @@ import { userData } from '../../data';
 
 const user = userData.validData.validAccount;
 
-test.describe('UI - Login', () => {
+test.describe('Login', () => {
   test('Login successfully with valid credentials', async ({ homePage, loginModal, navigationBar }) => {
     await homePage.goto();
     await navigationBar.openLoginModal();
